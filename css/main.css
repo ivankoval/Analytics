@@ -1,0 +1,94 @@
+/*html, body {*/
+    /*max-width: 100%;*/
+    /*overflow-x: hidden;*/
+/*}*/
+
+.header {
+    background-color: #1582DC;
+    position: fixed;
+    width: 100%;
+    padding-top: 0px;
+    min-height: 50px;
+    z-index: 1000;
+    border-radius: 0;
+    border: 0;
+    margin: 0;
+}
+
+#chart {
+    margin-bottom: 10px;
+}
+
+#logo {
+    display: inline;
+    max-height: 40px;
+    margin-top: -10px;
+}
+
+.heading-font {
+    display: inline;
+}
+
+#CalBut {
+    margin-top: 70px;
+}
+
+#CalBut .col-md-6 {
+    text-align: center;
+}
+
+i.fa {
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+div.well {
+    width: 70%;
+    margin: 50px auto 0 auto;
+}
+
+.form-control {
+    width: 50%;
+    border-right-width: 0px;
+}
+.form-control:focus {
+    border-right-width: 1px;
+}
+
+#InBut {
+    width: 60%;
+    margin: 0 auto;
+}
+
+#usersList{
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+#articleHead{
+    color: #000000;
+    font-weight: bold;
+    margin: 5px;
+    padding: 10px;
+}
+
+#patientArticle{
+    background: #F7F5F4;
+    border-radius: 5px;
+    box-shadow: 0 1px 5px rgba(0,0,0,.2);
+    padding: 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#articleName h1{
+    width: 600px;
+    font-size: 18px;
+    margin-top: 0px;
+    font-weight: bold;
+    /*padding: 10px;*/
+}
+#articleName{
+    width: 600px;
+}
+
