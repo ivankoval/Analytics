@@ -147,7 +147,24 @@ var PlotChart = function(userId) {
 
 }
 
+var ShowUser = function(userId) {
+    var appId = "SSzU4YxI6Z6SwvfNc2vkZhYQYl86CvBpd3P2wHF1";
+    var jsKey = "0ppjIVaWy3aqHyGEA95InejakxRELOMrePgRfREt";
+    Parse.initialize(appId, jsKey);
+    var query = new Parse.Query(Parse.User);
+    query.equalTo("objectId", userId);
+    query.find({
+       success: function(result) {
+           for(var i = 0; i < result.length; i++) {
+               var object = result[i];
+               $("#info").html(object.get("firstName") + " " + object.get("lastName") + " " + object.get("username"));
+           }
+       }
+    });
+}
+
 $(function(){
     var userId = GetURLParameter("userId");
-    var chart = new PlotChart(userId);
+    PlotChart(userId);
+    ShowUser(userId);
 });
