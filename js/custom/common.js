@@ -55,7 +55,6 @@ function getUsers(date, callback) {
 
 function getSessions(date, callback) {
 
-
     var sessions = [];
 
     initParse();
@@ -85,4 +84,53 @@ Array.prototype.getUnique = function(){
         u[this[i]] = 1;
     }
     return a;
+}
+
+function enablePreloader(){
+    $('.gallery-loader').removeClass('hide');
+}
+
+function disablePreloader(){
+    $('.gallery-loader').addClass('hide');
+}
+
+function loadAllDataFromParseRecursively(className, page, createdAt, results, callback){
+    if (className == undefined){
+        callback({error: 'className is not defined'});
+        return;
+    }
+    var q = new Parse.Query(Parse.Object.extend(className));
+    q.limit(1000);
+    q.skip(page * 1000);
+    q.greaterThan('createdAt', createdAt);
+    q.addAscending('createdAt');
+    q.find(function(list){
+        if (page > 8){
+            page = 0;
+            createdAt = results[results.length - 1].createdAt;
+        }else{
+            page = page + 1;
+        }
+        results = results.concat(list);
+        if (list.length < 1000){
+            disablePreloader();
+            callback(results);
+            return;
+        }
+        loadAllDataFromParseRecursively(className, page, createdAt, results, callback);
+    });
+}
+
+function loadAllDataFromParse(className, callback){
+    initParse();
+    enablePreloader();
+    loadAllDataFromParseRecursively(className, 0, new Date(0), [], callback);
+}
+
+function compare(a,b) {
+    if (a.freq < b.freq)
+        return -1;
+    if (a.freq > b.freq)
+        return 1;
+    return 0;
 }

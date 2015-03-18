@@ -2,7 +2,7 @@
  * Created by IvanK on 3/8/2015.
  */
 
-//    todo вход id выход всякие методы
+//    todo не нужен
 var UserInfoManager = function() {
     var self = this;
     this.currentUser = undefined;

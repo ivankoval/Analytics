@@ -92,3 +92,33 @@ div.well {
     width: 600px;
 }
 
+.gallery-loader {
+/*.opacity(1);*/
+    opacity: 1;
+    display: block;
+    /*background-color: fade(#fff, 80%);*/
+    background-color: #ffffff;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: block;
+    z-index: 999;
+    height: 100%;
+}
+
+.loader {
+    position: absolute;
+    margin: -12px 0 0 -12px;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    width: 24px;
+}
+
+#topUsersList {
+    overflow-y: auto;
+    max-height: 300px;
+    margin-top: 20px;
+}
