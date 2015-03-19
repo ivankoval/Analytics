@@ -1,8 +1,3 @@
-/*html, body {*/
-    /*max-width: 100%;*/
-    /*overflow-x: hidden;*/
-/*}*/
-
 .header {
     background-color: #1582DC;
     position: fixed;
@@ -93,10 +88,8 @@ div.well {
 }
 
 .gallery-loader {
-/*.opacity(1);*/
     opacity: 1;
     display: block;
-    /*background-color: fade(#fff, 80%);*/
     background-color: #ffffff;
     position: absolute;
     top: 0;
@@ -117,8 +110,17 @@ div.well {
     width: 24px;
 }
 
+#totalSessions {
+    margin: 20px auto 0 auto;
+    text-align: center;
+}
+
 #topUsersList {
     overflow-y: auto;
+    width: 90%;
     max-height: 300px;
-    margin-top: 20px;
+    margin: 0 auto;
+    text-align: center;
+    display: block;
+    margin-bottom: 20px;
 }

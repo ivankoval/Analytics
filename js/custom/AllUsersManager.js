@@ -6,15 +6,13 @@ var AllUsersManager = function() {
     var self = this;
     this.users = [];
     this.sessions = [];
-    this.userFreq = [];
-    this.usersAsc = [];
+    this.usersArrayRanked = [];
 
     this.init = function(callback) {
         loadAllDataFromParse('CardioSession', function(sessions) {
             self.sessions = sessions;
             loadAllDataFromParse('_User', function(users) {
                 self.users = users;
-                self.getNumOfSessions();
                 callback();
             });
         });
@@ -29,26 +27,46 @@ var AllUsersManager = function() {
         }
     }
 
-    this.getNumOfSessions = function() {
+    this.getSessionById = function(sessionId) {
         for(var i = 0; i < self.sessions.length; i++) {
-
-            var obj = self.sessions[i];
-            var userId = obj.attributes.userId;
-            (isNaN(self.userFreq[userId])) ? self.userFreq[userId] = 1 : self.userFreq[userId]++ ;
+            var object = self.sessions[i];
+            if(object.id == sessionId) {
+                return object;
+            }
         }
     }
+    //TODO Last session by Id
 
-    this.getTopUsers = function(callback) {
-        var tuples = [];
+    this.getLastSessionById = function(userId) {
+        var lastSession = undefined;
+        for(var i = 0; i < self.sessions.length; i++) {
+            var session = self.sessions[i];
 
-        for (var key in self.userFreq) {
-            if(key != 'getUnique'){
-                tuples.push({user: key, freq: self.userFreq[key]});
+            if(session.attributes['userId'] == userId) {
+                lastSession = session;
+
+            }
+        }
+        return lastSession;
+    }
+
+    this.getTopUsers = function(start, end, callback) {
+        var userFreq = [], tuples = [];
+
+        for(var i = 0; i < self.sessions.length; i++) {
+            var obj = self.sessions[i];
+            if(obj.attributes.startTimestamp > start && obj.attributes.startTimestamp < end) {
+                var userId = obj.attributes.userId;
+                (isNaN(userFreq[userId])) ? userFreq[userId] = 1 : userFreq[userId]++ ;
             }
         }
 
+        for (var key in userFreq) {
+            tuples.push({user: key, freq: userFreq[key]});
+        }
+
         tuples.sort(compare);
-        self.usersAsc = tuples;
+        self.usersArrayRanked = tuples;
         callback();
 
     }

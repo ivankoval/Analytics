@@ -33,36 +33,16 @@ function CountFrequency(arr) {
     return data;
 }
 
-//TODO merge getUsers and getSessions
-function getUsers(date, callback) {
-    var users = [];
-
-    initParse();
-    var CardioSession = Parse.Object.extend("CardioSession");
-    var query = new Parse.Query(CardioSession);
-    query.greaterThanOrEqualTo("startTimestamp", date._i);
-    query.lessThan("startTimestamp", date._i + 86400000);
-    query.find({
-        success: function(results) {
-            for(var i = 0; i < results.length; i++) {
-                var object = results[i];
-                users.push(object.get("userId"));
-            }
-            callback(users.getUnique());
-        }
-    });
-}
-
-function getSessions(date, callback) {
-
+function getSessionsInDate(date, callback) {
     var sessions = [];
 
     initParse();
     var CardioSession = Parse.Object.extend("CardioSession");
     var query = new Parse.Query(CardioSession);
-    query.greaterThanOrEqualTo("startTimestamp", date._i);
 
+    query.greaterThanOrEqualTo("startTimestamp", date._i);
     query.lessThan("startTimestamp", date._i + 86400000);
+
     query.find({
         success: function(results) {
             for(var i = 0; i < results.length; i++) {
@@ -74,16 +54,16 @@ function getSessions(date, callback) {
     });
 }
 
-Array.prototype.getUnique = function(){
-    var u = {}, a = [];
-    for(var i = 0, l = this.length; i < l; ++i){
-        if(u.hasOwnProperty(this[i])) {
-            continue;
+function getUniqueValues(array) {
+    var isExs = [], uniqueArray = [];
+    for(var i = 0; i < array.length; i++) {
+        var obj = array[i];
+        if(isNaN(isExs[obj])) {
+            isExs[obj] = true;
+            uniqueArray.push(obj);
         }
-        a.push(this[i]);
-        u[this[i]] = 1;
     }
-    return a;
+    return uniqueArray;
 }
 
 function enablePreloader(){
@@ -108,9 +88,9 @@ function loadAllDataFromParseRecursively(className, page, createdAt, results, ca
         if (page > 8){
             page = 0;
             createdAt = results[results.length - 1].createdAt;
-        }else{
-            page = page + 1;
         }
+        page = page + 1;
+
         results = results.concat(list);
         if (list.length < 1000){
             disablePreloader();

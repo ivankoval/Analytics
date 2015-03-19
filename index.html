@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>-->
 <html>
 <head lang="en">
     <meta charset="UTF-8">
@@ -17,12 +17,10 @@
     <script src="js/collapse.js"></script>
     <script src="js/parse.min.js"></script>
     <script src="js/bootstrap-datetimepicker.min.js"></script>
-
     <script src="js/custom/AnalyticsManager.js"></script>
     <script src="js/custom/BarChart.js"></script>
     <script src="js/custom/ChartManager.js"></script>
     <script src="js/custom/common.js"></script>
-    <script src="js/custom/UserInfoManager.js"></script>
     <script src="js/custom/ModalManager.js"></script>
     <script src="js/custom/AllUsersManager.js"></script>
 
@@ -97,7 +95,7 @@
                 </div>
 
                 <div class="col-md-6">
-                    <div class="well" style="display: none">
+                    <div id="userInfo" class="well" style="display: none">
                         <div class="row">
                             <div class="col-md-5">
                                 <img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" />
@@ -113,19 +111,22 @@
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-primary">
                                         Social</button>
-                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="height: 34px">
                                         <span class="caret"></span><span class="sr-only">Social</span>
                                     </button>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li class="list-group"><a id="userFbId" href="">Facebook</a></li>
+                                        <li class="list-group"><a id="userFbId" href="" target="_blank">Facebook</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div id="topUsers" class="list-group">
-                        <ul id="topUsersList"></ul>
+
+                    <div id="topUsers">
+                        <div id="totalSessions"></div>
+                        <div id="topUsersList" class="list-group"></div>
                     </div>
+
                 </div>
             </div>
 
@@ -136,10 +137,13 @@
 
     </section>
 
-    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div id="usersModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-                    <ul class="list-group" id="usersList" ></ul>
+                <div class="modal-content" style="max-height: 500px; overflow-y: auto" >
+                    <div id="modalUserListHeader" class="modal-header">
+
+                    </div>
+                    <ul class="list-group" id="modalUsersList" ></ul>
                     <div class="modal-footer">
                         <button id="showSessions" type="button" class="btn btn-default" data-dismiss="modal">Show sessions</button>
                     </div>

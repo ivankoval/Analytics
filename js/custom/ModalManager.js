@@ -4,17 +4,18 @@
 var ModalManager = function() {
     var self = this;
     this.users = undefined;
-    this.url = '/analytics/userSessions.html?userId=';
 
     this.init = function(users, allUsersManager) {
         self.users = users;
-        $('.list-group').empty();
+        $('#modalUsersList').empty();
+        $('#modalUserListHeader').html('Total users: ' + users.length);
+
 
         for(var i = 0; i < users.length; i++) {
             var user = allUsersManager.getUserById(users[i]);
-            $('.list-group').append('<li class="list-group-item"><a href="#" data-id="'+ users[i] +'" class="link">' +  user.attributes['email'] + '</a></li>');
+            $('#modalUsersList').append('<li class="list-group-item"><a href="#" data-id="'+ users[i] +'" class="modalLink">' +  user.attributes['email'] + '</a></li>');
         }
-        $('.modal').modal('show');
+        $('#usersModal').modal('show');
     }
 
 }
